@@ -14,16 +14,18 @@
 		"@cloudflare/workers-types": "^4.20250204.0",
 		"typescript": "^5.5.2",
 		"vitest": "2.1.8",
-		"wrangler": "^4.31.0"
+		"wrangler": "^4.150.0"
 	},
 	"dependencies": {
 		"@cloudflare/puppeteer": "^1.0.4",
-		"@react-email/render": "^1.2.1",
 		"@sindresorhus/slugify": "^2.2.1",
 		"puppeteer-cmp-clicker": "^1.0.3",
-		"react": "^19.1.1",
-		"react-dom": "^19.1.1",
-		"resend": "^6.0.1",
 		"zod": "^4.1.1"
+	},
+	"allowScripts": {
+		"fsevents@2.3.3": true,
+		"sharp@0.33.5": true,
+		"esbuild@0.28.2": true,
+		"workerd@1.20261006.1": true
 	}
 }

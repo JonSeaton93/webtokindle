@@ -1,6 +1,6 @@
 # WebToKindle (Cloudflare Workers + Workflows) 📚☁️
 
-Send any web page to your Kindle as a clean PDF. The Worker orchestrates a Cloudflare Browser session to render a page to PDF, caches the result in KV, and can email it via Resend. ✉️🖨️
+Send any web page to your Kindle as a clean PDF. The Worker orchestrates a Cloudflare Browser session to render a page to PDF, caches the result in KV, and can email it via Gmail SMTP. ✉️🖨️
 
 ![alt](/public/image.png)
 
@@ -20,7 +20,7 @@ Send any web page to your Kindle as a clean PDF. The Worker orchestrates a Cloud
 - Cloudflare Browser Rendering (`@cloudflare/puppeteer`)
 - Cloudflare KV (PDF caching)
 - Zod (request validation)
-- Resend (optional email delivery)
+- Gmail SMTP over TLS, via Workers TCP Sockets (optional email delivery)
 
 ## Quick start (dev) ⚙️
 
@@ -32,10 +32,14 @@ npm i
 
 2. Configure secrets (optional, for email)
 
+Requires a Gmail account with 2-Step Verification enabled and an [App Password](https://myaccount.google.com/apppasswords) generated for it.
+
 ```
-wrangler secret put RESEND_KEY
-wrangler secret put FROM_EMAIL
+wrangler secret put GMAIL_USER
+wrangler secret put GMAIL_APP_PASSWORD
 ```
+
+Also add `GMAIL_USER`'s address to Amazon's Kindle approved-sender list (Manage Your Content and Devices → Preferences → Personal Document Settings → Approved Personal Document E-mail List), or Kindle will silently drop the email.
 
 3. Run remote dev (Workflows require Cloudflare’s remote runtime)
 
@@ -147,5 +151,5 @@ src/
   index.ts        # Worker entry (validates body, starts Workflow)
   workflow.ts     # Workflow steps (KV check → render → cache → send)
   browser.ts      # Durable Object for browser session & PDF rendering
-  email.ts        # Resend email helper (optional)
+  email.ts        # Gmail SMTP email helper (optional)
 ```
