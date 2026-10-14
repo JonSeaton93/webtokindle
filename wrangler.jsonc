@@ -1,0 +1,31 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "webtokindle",
+	"main": "src/index.ts",
+	"compatibility_date": "2025-02-04",
+	"compatibility_flags": ["nodejs_compat"],
+
+	"assets": {
+		"directory": "./public",
+		"binding": "ASSETS"
+	},
+
+	"browser": {
+		"binding": "BROWSER"
+	},
+
+	"durable_objects": {
+		"bindings": [{ "name": "BROWSER_CONTROLLER", "class_name": "BrowserController" }]
+	},
+	"migrations": [{ "tag": "v1", "new_sqlite_classes": ["BrowserController"] }],
+
+	"workflows": [{ "name": "WebToKindle-starter", "binding": "WORKFLOW", "class_name": "Workflow" }],
+
+	"kv_namespaces": [
+		{
+			"binding": "ARTICLE_CACHE",
+			"id": "dd8f3d0c1deb4ba9b6509bdf4e5147e2",
+			"preview_id": "d2e50e5f5ec54700a96d10d552b16827"
+		}
+	]
+}
